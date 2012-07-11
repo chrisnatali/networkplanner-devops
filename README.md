@@ -2,7 +2,7 @@ Overview
 ========
 
 Repository for automated deployment/configuration of computing nodes associated with networkplanner.
-Makes deploying as networkplanner as simple as running:
+To deploy to a network planner node use:
 
 * fab provision:host_string=<host>,system_type=<system>,branch=<np_branch>
 * fab deploy:host_string=<host>,system_type=<system>,branch=<np_branch>
@@ -20,8 +20,10 @@ Main Components
 * `chef-repo` - the chef configuration for setting up nodes
 * `<server-type>.json` - files defining chef components of each server type
 
-TODO
+Caveat Emptor
 ==========
 
-THIS IS NOT COMPLETE 
-Elaborate this document, test, etc, etc
+THIS IS INCOMPLETE!!!
+fab provision task has not been defined
+No systems other than single-server have been tested
+Testing has only been done on vagrant vm's (not amazon or other linux instances)

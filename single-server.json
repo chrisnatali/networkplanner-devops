@@ -1,0 +1,6 @@
+{
+    "run_list":[
+        "role[np_base]", 
+        "recipe[np_setup::server]"
+    ]
+} 

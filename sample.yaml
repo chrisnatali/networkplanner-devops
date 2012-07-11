@@ -1,0 +1,22 @@
+config-file: .development.cfg
+mail-imap: mail.<your-server>.com
+mail-smtp: smtp.<your-smtp>.com
+mail-email: support-np@<your-domain>.com
+mail-username: <your-mail-user>
+mail-password: <your-mail-pwd>
+mail-nickname: <your-mail-nickname>
+
+recaptcha-public: <your-recaptcha-public-key>
+recaptcha-private: <your-recaptcha-private-key>
+
+web-url: <your-deployed-url>
+
+amqp-host: <your-amqp-host>:5672
+amqp-username: np
+amqp-password: <your-amqp-pwd>
+amqp-incoming-queue: np-incoming
+amqp-incoming-exchange: np-incoming
+amqp-incoming-key: np-incoming
+amqp-outgoing-queue: np-outgoing
+amqp-outgoing-exchange: np-outgoing
+amqp-outgoing-key: np-outgoing

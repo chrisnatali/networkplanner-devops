@@ -2,6 +2,7 @@ Overview
 ========
 
 Repository for automated deployment/configuration of computing nodes associated with networkplanner.
+
 To deploy to a network planner node use:
 
 * fab provision:host_string=<host>,system_type=<system>,branch=<np_branch>
@@ -24,6 +25,9 @@ Caveat Emptor
 ==========
 
 THIS IS INCOMPLETE!!!
+
 fab provision task has not been defined
+
 No systems other than single-server have been tested
+
 Testing has only been done on vagrant vm's (not amazon or other linux instances)

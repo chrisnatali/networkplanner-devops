@@ -15,4 +15,6 @@ fi
 
 cd networkplanner-devops
 
+git pull
+
 sudo chef-solo -c solo.rb -j single-server.json

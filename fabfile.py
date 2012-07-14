@@ -97,9 +97,9 @@ def setup_env(**args):
     if env.ssh_config_path and os.path.isfile(os.path.expanduser(env.ssh_config_path)):
         env.use_ssh_config = True
     # ensure that args contains host_string, system_type and branch
-    bools = [x in args for x in ('host_string', 'system_type', 'branch')]
+    bools = [x in args for x in ('system_type', 'branch')]
     if not (reduce(operator.and_, bools)):
-        abort("host_string, system_type and branch params are required")
+        abort("system_type and branch params are required")
 
     env.update(DEFAULTS)
     env.update(args)

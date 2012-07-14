@@ -5,24 +5,24 @@ Repository for automated deployment/configuration of computing nodes associated 
 
 To deploy to a network planner node use:
 
-* fab provision:host_string=<host>,system_type=<system>,branch=<np_branch>
-* fab deploy:host_string=<host>,system_type=<system>,branch=<np_branch>
+    fab -H host provision:system_type=<system>,branch=<np_branch>
+    fab -H host deploy:system_type=<system>,branch=<np_branch>
 
 Where <system> is one of:
-* `single-server` - Single User Mode
-* `cluster-server` - Server that "manages" clusters
-* `cluster-processor` - A computing node
+* `ss` - Single Server Mode
+* `cs` - Cluster Server that "manages" clusters
+* `cp` - A cluster processor computing node
 
 
 Main Components
-======================
+===============
 
 * `fabfile.py` - fabfile which orchestrates deployment
 * `chef-repo` - the chef configuration for setting up nodes
 * `<server-type>.json` - files defining chef components of each server type
 
 Caveat Emptor
-==========
+=============
 
 THIS IS INCOMPLETE!!!
 

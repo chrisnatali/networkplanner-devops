@@ -19,7 +19,9 @@ DEFAULTS = {
     'home': '/var/www',
     'repo': 'git://github.com/modilabs/networkplanner.git',
     'devops_repo': 'git://github.com/chrisnatali/networkplanner-devops.git',
-    'project': 'np'
+    'project': 'np',
+    'system_type': 'ss', #defaults to provision/deploy single-server setup
+    'branch': 'master'
     }
 
 def refresh_doc():
@@ -100,10 +102,11 @@ def setup_env(**args):
     # use ssh config if available
     if env.ssh_config_path and os.path.isfile(os.path.expanduser(env.ssh_config_path)):
         env.use_ssh_config = True
-    # ensure that args contains host_string, system_type and branch
-    bools = [x in args for x in ('system_type', 'branch')]
-    if not (reduce(operator.and_, bools)):
-        abort("system_type and branch params are required")
+    # ensure that args contains system_type 
+    # bools = [x in args for x in ('system_type')]
+    # if not (reduce(operator.and_, bools)):
+    if not ('system_type' in args):
+        abort("system_type param is required")
 
     env.update(DEFAULTS)
     env.update(args)
@@ -122,11 +125,12 @@ def upload_config():
 
 def provision(**args):
     setup_env(**args)
-    if run("test -d networkplanner-devops").failed:
-        run("git clone %(devops_repo)s" % env)
+    with settings(warn_only=True):
+        if run("test -d networkplanner-devops").failed:
+            run("git clone %(devops_repo)s" % env)
     
     with cd("networkplanner-devops"):
-        run("git pull")
+        run("git pull origin %(branch)s" % env)
         sudo("chef-solo -c solo.rb -j %(chef_json)s" % env)
 
      

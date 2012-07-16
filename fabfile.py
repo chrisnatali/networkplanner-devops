@@ -18,6 +18,7 @@ import yaml
 DEFAULTS = {
     'home': '/var/www',
     'repo': 'git://github.com/modilabs/networkplanner.git',
+    'devops_repo': 'git://github.com/chrisnatali/networkplanner-devops.git',
     'project': 'np'
     }
 
@@ -70,6 +71,7 @@ DEPLOYMENTS = {
         'cronfile':    'cluster-server.crt',
         'ini_file':    'production.ini',
         'config_env':  'production.yaml',
+        'chef_json':   'cluster-server.json',
         'deploy_fun':  deploy_cs
         }, 
     'cp': {
@@ -77,6 +79,7 @@ DEPLOYMENTS = {
         'cronfile':    'cluster-processor.crt',
         'ini_file':    'development.ini',
         'config_env':  'development.yaml',
+        'chef_json':   'cluster-processor.json',
         'deploy_fun':  deploy_cp
         }, 
     'ss': {
@@ -84,6 +87,7 @@ DEPLOYMENTS = {
         'cronfile':    'single-server.crt',
         'ini_file':    'production.ini',
         'config_env':  'production.yaml',
+        'chef_json':   'single-server.json',
         'deploy_fun':  deploy_ss
         } 
     }
@@ -115,6 +119,17 @@ def upload_config():
             context=config_dict,
             mode=0600)
 
+
+def provision(**args):
+    setup_env(**args)
+    if run("test -d networkplanner-devops").failed:
+        run("git clone %(devops_repo)s" % env)
+    
+    with cd("networkplanner-devops"):
+        run("git pull")
+        sudo("chef-solo -c solo.rb -j %(chef_json)s" % env)
+
+     
 def deploy(**args):
     setup_env(**args)
     with cd(env.project_directory):
@@ -135,5 +150,3 @@ def pull(**args):
     with cd(env.project_directory):
         run("git pull origin %(branch)s" % env)
         run('find . -name "*.pyc" | xargs rm -rf')
-        
-        

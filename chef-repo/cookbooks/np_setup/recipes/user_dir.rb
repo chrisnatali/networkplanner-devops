@@ -39,3 +39,13 @@ directory "/var/www/np" do
     recursive true
     action :create
 end
+
+# get NP from git
+git "/var/www/np" do
+    destination "/var/www/np"
+    repository "git://github.com/modilabs/networkplanner.git"
+    revision "master"
+    action :sync
+    user "np"
+    group "np"
+end

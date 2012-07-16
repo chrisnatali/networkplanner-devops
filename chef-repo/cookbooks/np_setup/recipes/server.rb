@@ -49,20 +49,6 @@ bash "enable-postgresql" do
     EOH
 end
 
-#service "postgresql" do
-#    supports :restart => true
-#    action [:enable, :start]
-#    service_name $postgres_service
-#end
-
-git "/var/www/np" do
-    destination "/var/www/np"
-    repository "git://github.com/modilabs/networkplanner.git"
-    revision "master"
-    action :sync
-    user "np"
-    group "np"
-end
 
 #configure the database
 #NOTE:  We're leaving the default security configuration 

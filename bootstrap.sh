@@ -9,12 +9,3 @@ sudo gem install chef --no-rdoc --no-ri
 
 sudo apt-get -y install git-core
 
-if [ ! -d networkplanner-devops ]; then
-    git clone git://github.com/chrisnatali/networkplanner-devops.git
-fi
-
-cd networkplanner-devops
-
-git pull
-
-sudo chef-solo -c solo.rb -j single-server.json

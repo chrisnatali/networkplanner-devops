@@ -8,7 +8,7 @@ To deploy to a network planner node use:
     fab -H host provision:system_type=<system>,branch=<np_branch>
     fab -H host deploy:system_type=<system>,branch=<np_branch>
 
-Where <system> is one of:
+Where `<system>` is one of:
 * `ss` - Single Server Mode
 * `cs` - Cluster Server that "manages" clusters
 * `cp` - A cluster processor computing node

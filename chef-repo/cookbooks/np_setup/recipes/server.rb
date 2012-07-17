@@ -93,11 +93,3 @@ end
 service "nginx" do
     action :restart
 end
-
-#install required system packages
-#TODO:  Use more Chef-like methods for this
-bash "install-system-packages" do
-    code <<-EOH
-    apt-get install -y python-setuptools libgdal-dev proj python-pip zlibc python-virtualenv python-dev python-numpy python-matplotlib python-gdal python-scipy
-    EOH
-end

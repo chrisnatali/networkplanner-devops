@@ -45,6 +45,8 @@ def deploy_cs():
     run("kill `ps x|grep consumer.py|grep -v grep|awk '{print $1}'`")
     cronfile = os.path.join("deployment", env.cronfile)
     run("crontab %s" % cronfile)
+    # configure rabbitmq for np
+    run("./deployment/cluster-queue-reset.sh")
     refresh_doc()
 
 def deploy_ss():
@@ -59,10 +61,10 @@ def deploy_ss():
 
 def deploy_cp():
     print("deploying clustered processor on %(host_string)s" % env)
+    # cp database can be removed as they don't permanently store anything
+    # TODO:  Check whether anything is being processed b4 destroying?
     run("rm -Rf data *.db")
     run("paster setup-app %(ini_file)s" % env)
-    #sleep 1 so that daemon is not killed
-    run("paster serve --daemon %(ini_file)s; sleep 1" % env)
     cronfile = os.path.join("deployment", env.cronfile)
     run("crontab %s" % cronfile)
 
@@ -79,8 +81,8 @@ DEPLOYMENTS = {
     'cp': {
         'description': 'cluster processor',
         'cronfile':    'cluster-processor.crt',
-        'ini_file':    'development.ini',
-        'config_env':  'development.yaml',
+        'ini_file':    'production.ini',
+        'config_env':  'production.yaml',
         'chef_json':   'cluster-processor.json',
         'deploy_fun':  deploy_cp
         }, 

@@ -81,8 +81,8 @@ DEPLOYMENTS = {
     'cp': {
         'description': 'cluster processor',
         'cronfile':    'cluster-processor.crt',
-        'ini_file':    'production.ini',
-        'config_env':  'production.yaml',
+        'ini_file':    'development.ini', #to reference sqlite db
+        'config_env':  'development.yaml',
         'chef_json':   'cluster-processor.json',
         'deploy_fun':  deploy_cp
         }, 

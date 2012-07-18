@@ -104,14 +104,10 @@ def setup_env(**args):
     # use ssh config if available
     if env.ssh_config_path and os.path.isfile(os.path.expanduser(env.ssh_config_path)):
         env.use_ssh_config = True
-    # ensure that args contains system_type 
-    # bools = [x in args for x in ('system_type')]
-    # if not (reduce(operator.and_, bools)):
-    if not ('system_type' in args):
-        abort("system_type param is required")
 
     env.update(DEFAULTS)
-    env.update(DEPLOYMENTS[env.system_type])
+    if args.has_key('system_type'): 
+        env.update(DEPLOYMENTS[args['system_type']])
     #allow user to override defaults
     env.update(args)
     env.project_directory = os.path.join(env.home, env.project)

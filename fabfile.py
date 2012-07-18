@@ -111,8 +111,9 @@ def setup_env(**args):
         abort("system_type param is required")
 
     env.update(DEFAULTS)
-    env.update(args)
     env.update(DEPLOYMENTS[env.system_type])
+    #allow user to override defaults
+    env.update(args)
     env.project_directory = os.path.join(env.home, env.project)
     env.pip_requirements_file = os.path.join(env.project_directory, 'requirements.txt')
 

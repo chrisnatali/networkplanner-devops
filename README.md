@@ -5,14 +5,19 @@ Repository for automated deployment/configuration of computing nodes associated 
 
 To deploy to a network planner node use:
 
-    fab -H host provision:system_type=<system>,branch=<np_branch>
-    fab -H host deploy:system_type=<system>,branch=<np_branch>
+    # setup baseline packages on machine
+    ssh `<host>` 'bash -s' < bootstrap.sh
+    # setup network planner specific packages, create np user and directories
+    fab -H `<host>` provision:system_type=`<system>`,branch=`<np_branch>`
+    # deploy network planner as the np user (note that host_np_user should login as np user)
+    fab -H `<host_np_user>` deploy:system_type=`<system>`,branch=`<np_branch>`
 
 Where `<system>` is one of:
 * `ss` - Single Server Mode
 * `cs` - Cluster Server that "manages" clusters
 * `cp` - A cluster processor computing node
 
+For cluster processors, you can pass multiple comma delim'd hosts to fab and the -P option to provision or deploy in parallel.  
 
 Main Components
 ===============
@@ -24,10 +29,8 @@ Main Components
 Caveat Emptor
 =============
 
-THIS IS INCOMPLETE!!!
+* You should have a reasonable understanding of Network Planner and it's architecture before using this (see:  github.com/modilabs/networkplanner)
 
-fab provision task has not been defined
+* Running the deploy task requires a yaml file (see sample.yaml) that contains important configuration information.  See fabfile.py for default file names.  It can be overridden by a config_env command line parameter.  
 
-No systems other than single-server have been tested
-
-Testing has only been done on vagrant vm's (not amazon or other linux instances)
+* See fabfile.py for details

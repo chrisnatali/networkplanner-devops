@@ -14,7 +14,13 @@ fi
 
 echo "Creating backup of $DATABASE..."
 
-if ! pg_dump -Fp $DATABASE | gzip > $THIS_BACKUP_DIR/$DATABASE.sql.gz.in_progress; then
+DUMP_CMD="pg_dump -Fp $DATABASE"
+if [ -n $DATABASE_USER ]; then
+    DUMP_CMD="$DUMP_CMD -U $DATABASE_USER"
+fi
+
+
+if ! $DUMP_CMD | gzip > $THIS_BACKUP_DIR/$DATABASE.sql.gz.in_progress; then
     echo "Error creating backup of $DATABASE"
     exit 1
 else

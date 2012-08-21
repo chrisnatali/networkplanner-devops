@@ -4,6 +4,8 @@
 SCRIPTPATH=$(cd ${0%/*} && pwd -P)
 source $SCRIPTPATH/backup.conf
 
+echo "Starting backup for `date +\%Y-\%m-\%d`"
+
 # Setup backup dir
 BACKUP_DIR=${BACKUP_DIR%/} #remove xtra / if there
 THIS_BACKUP_DIR=$BACKUP_DIR/`date +\%Y-\%m-\%d`

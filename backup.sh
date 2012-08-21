@@ -22,6 +22,7 @@ fi
 
 if ! $DUMP_CMD | gzip > $THIS_BACKUP_DIR/$DATABASE.sql.gz.in_progress; then
     echo "Error creating backup of $DATABASE"
+    rm -rf $THIS_BACKUP_DIR #rm dir so only successful backup dirs exist
     exit 1
 else
     mv $THIS_BACKUP_DIR/$DATABASE.sql.gz.in_progress $THIS_BACKUP_DIR/$DATABASE.sql.gz
@@ -33,6 +34,7 @@ echo "Creating backup of data directory $DATA_DIR..."
 
 if ! tar -zcf $THIS_BACKUP_DIR/files.tar -C $DATA_DIR production; then
     echo "Error creating backup of $DATA_DIR"
+    rm -rf $THIS_BACKUP_DIR #rm dir so only successful backup dirs exist
     exit 1
 fi
 

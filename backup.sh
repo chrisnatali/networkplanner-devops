@@ -38,9 +38,16 @@ fi
 
 echo "Backup of $DATA_DIR complete"
 
-echo "Removing backups older than $DAYS_TO_KEEP days..."
-if ! find $BACKUP_DIR -maxdepth 1 -mtime +$DAYS_TO_KEEP -name '*-*-*'| xargs rm -rf; then
+echo "Removing backups other than the last $NUM_BACKUPS..."
+if ! find $BACKUP_DIR -maxdepth 1 -name '*-*-*' | sort | head -n $NUM_BACKUPS | xargs rm -rf; then
     echo "Failed to remove backups"
+    exit 1
+fi
+
+# Sync with S3
+echo "Syncing backups with $S3_BUCKET..."
+if ! s3cmd sync $BACKUP_DIR $S3_BUCKET; then
+    echo "Failed to sync with S3"
     exit 1
 fi
 

@@ -19,12 +19,15 @@ Where `<system>` is one of:
 
 For cluster processors, you can pass multiple comma delim'd hosts to fab and the -P option to provision or deploy in parallel.  
 
+Also includes automated backup utils.  
+
 Main Components
 ===============
 
 * `fabfile.py` - fabfile which orchestrates deployment
 * `chef-repo` - the chef configuration for setting up nodes
 * `<server-type>.json` - files defining chef components of each server type
+* `backup.sh` - script defining backup process
 
 Caveat Emptor
 =============

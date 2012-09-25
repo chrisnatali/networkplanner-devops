@@ -152,4 +152,4 @@ def pull(**args):
 
     with cd(env.project_directory):
         run("git pull origin %(branch)s" % env)
-        run('find . -name "*.pyc" | xargs rm -rf')
+        run('find np -name "*.pyc" | xargs rm -rf')

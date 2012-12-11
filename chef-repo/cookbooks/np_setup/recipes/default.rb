@@ -33,9 +33,23 @@ end
 
 #install required system packages
 #TODO:  Use more Chef-like methods for this
-bash "install-system-packages" do
+#
+#First, libspatialindex (requires modified version until changes are pulled into master repo)
+bash "install_libspatialindex" do
+    cwd "/tmp"
     code <<-EOH
-    apt-get install -y python-setuptools libgdal-dev proj libspatialindex1 libspatialindex-dev python-pip zlibc python-virtualenv python-dev python-numpy python-matplotlib python-gdal python-scipy 
+    git clone git://github.com/chrisnatali/libspatialindex.git
+    (cd libspatialindex && ./configure && make && make install)
     ldconfig
     EOH
 end
+
+# And the rest
+bash "install-system-packages" do
+    code <<-EOH
+    apt-get install -y python-setuptools libgdal-dev proj python-pip zlibc python-virtualenv python-dev python-numpy python-matplotlib python-gdal python-scipy 
+    ldconfig
+    EOH
+end
+
+

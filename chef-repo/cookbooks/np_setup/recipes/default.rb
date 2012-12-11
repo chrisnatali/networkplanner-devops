@@ -23,10 +23,6 @@ package "make" do
     action :install
 end
 
-package "automake" do 
-    action :install
-end
-
 package "git-core" do
     action :install
 end
@@ -43,6 +39,7 @@ bash "install_libspatialindex" do
     cwd "/tmp"
     code <<-EOH
     git clone git://github.com/chrisnatali/libspatialindex.git
+    apt-get install -y automake libtool
     (cd libspatialindex && ./autogen.sh && ./configure && make && make install)
     ldconfig
     EOH

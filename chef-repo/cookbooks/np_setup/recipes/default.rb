@@ -34,12 +34,12 @@ end
 #install required system packages
 #TODO:  Use more Chef-like methods for this
 #
-#First, libspatialindex (requires modified version until changes are pulled into master repo)
+#First, libspatialindex (np requires modified version until changes are pulled into master repo)
 bash "install_libspatialindex" do
     cwd "/tmp"
     code <<-EOH
     git clone git://github.com/chrisnatali/libspatialindex.git
-    (cd libspatialindex && ./configure && make && make install)
+    (cd libspatialindex && ./autogen.sh && ./configure && make && make install)
     ldconfig
     EOH
 end

@@ -23,6 +23,10 @@ package "make" do
     action :install
 end
 
+package "automake" do 
+    action :install
+end
+
 package "git-core" do
     action :install
 end

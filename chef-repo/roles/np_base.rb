@@ -12,7 +12,7 @@ default_attributes(
     "authorization" => {
         "sudo" => {
             "users" => ["np"],
-            "groups" => ["admin"],
+            "groups" => ["admin", "sudo"],
             "passwordless" => true
         }
     }

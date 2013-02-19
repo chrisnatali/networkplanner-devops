@@ -41,15 +41,15 @@ bash "install_libspatialindex" do
     git clone git://github.com/chrisnatali/libspatialindex.git
     apt-get install -y automake libtool
     (cd libspatialindex && ./autogen.sh && ./configure && make && make install)
-    ldconfig
+    sudo ldconfig
     EOH
 end
 
 # And the rest
 bash "install-system-packages" do
     code <<-EOH
-    apt-get install -y python-setuptools libgdal-dev proj python-pip zlibc python-virtualenv python-dev python-numpy python-matplotlib python-gdal python-scipy 
-    ldconfig
+    sudo apt-get install -y python-setuptools libgdal-dev proj python-pip zlibc python-virtualenv python-dev python-numpy python-matplotlib python-gdal python-scipy 
+    sudo ldconfig
     EOH
 end
 

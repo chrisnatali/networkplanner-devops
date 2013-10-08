@@ -51,7 +51,7 @@ echo "Removing backups other than the last $NUM_BACKUPS..."
 BACKUP_CT=`find $BACKUP_DIR -maxdepth 1 -name '*-*-*' | wc -l`
 if [ $BACKUP_CT -gt $NUM_BACKUPS ]
 then
-    find $BACKUP_DIR -maxdepth 1 -name '*-*-*' | sort | head -n -$NUM_BACKUPS | xargs rm -rf
+    find $BACKUP_DIR -maxdepth 1 -name '*-*-*' | sort | head -n -$((BACKUP_CT - NUM_BACKUPS)) | xargs rm -rf
     if [ 0 -ne $PIPESTATUS ]
     then
         echo "Failed to remove backups"
